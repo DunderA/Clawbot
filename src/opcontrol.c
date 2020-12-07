@@ -14,6 +14,8 @@ void operatorControl() {
 	 int power, turn;
    int shoulderTarget = 0;
    int elbowTarget = 0;
+   int ultraRange = 0;
+   int ultraFollow = 30;
    while(1) {
 
 
@@ -45,14 +47,43 @@ void operatorControl() {
 
       // control elbow
       if(joystickGetDigital(1, 5, JOY_UP)) {
-        elbowTarget+=1;
+        elbowTarget=encoderGet(elbowEncoder);
+        motorSet(ELBOW,127);
       }
       else if(joystickGetDigital(1, 5, JOY_DOWN)) {
-        elbowTarget-=1;
+        elbowTarget=encoderGet(elbowEncoder);
+        motorSet(ELBOW,-127);
       }
-      motorSet(ELBOW,(elbowTarget-encoderGet(elbowEncoder))*2);
+      else{
+        motorSet(ELBOW,(elbowTarget-encoderGet(elbowEncoder))*2);
+      }
 
 
+
+      if(joystickGetDigital(1, 8, JOY_RIGHT)){
+        while(joystickGetDigital(1, 8, JOY_RIGHT)){
+          delay(60);
+          ultraRange=ultrasonicGet(noiseMaker);
+          if(ultraRange<0){
+            motorStopAll();
+          }
+          else if(ultraRange>(ultraFollow+4)){
+            motorSet(LEFT,25);
+            motorSet(RIGHT,-25);
+          }
+          else if(ultraRange<(ultraFollow-4)){
+            motorSet(LEFT,-25);
+            motorSet(RIGHT,25);
+          }
+
+          else{
+            motorStopAll();
+          }
+          if(joystickGetDigital(1, 7, JOY_UP)){ultraFollow++;}
+          if(joystickGetDigital(1, 7, JOY_DOWN)){ultraFollow--;}
+          printf("%d\n",ultraRange);
+        }
+      }
       // Homeing routine
       if(joystickGetDigital(1,8, JOY_UP)){
 	       motorSet(SHOULDER,-50);
@@ -77,6 +108,7 @@ void operatorControl() {
 
 
        loopCount = loopCount + 1 ;
+      //debug
        if(loopCount%25==0){
          printf("shoulder power: %d\n", (shoulderTarget-encoderGet(shoulderEncoder))*2);
          printf("shoulder encoder: %d\n", encoderGet(shoulderEncoder));
@@ -95,6 +127,9 @@ void operatorControl() {
          else{
           printf("elbow limit switch is NOT depressed \n");
          }
+         printf("\n");
+         printf("%d\n",ultrasonicGet (noiseMaker));
+         printf("\n");
        }
 
        delay(20);

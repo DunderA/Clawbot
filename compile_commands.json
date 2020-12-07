@@ -49,11 +49,11 @@
             "-fdiagnostics-color",
             "-std=gnu99",
             "-o",
-            "bin/opcontrol.c.o",
-            "src/opcontrol.c"
+            "bin/init.c.o",
+            "src/init.c"
         ],
         "directory": "/Users/aidanalcala/Other/Robotics/MyProgram",
-        "file": "src/opcontrol.c"
+        "file": "src/init.c"
     },
     {
         "arguments": [
@@ -77,10 +77,10 @@
             "-fdiagnostics-color",
             "-std=gnu99",
             "-o",
-            "bin/init.c.o",
-            "src/init.c"
+            "bin/opcontrol.c.o",
+            "src/opcontrol.c"
         ],
         "directory": "/Users/aidanalcala/Other/Robotics/MyProgram",
-        "file": "src/init.c"
+        "file": "src/opcontrol.c"
     }
 ]

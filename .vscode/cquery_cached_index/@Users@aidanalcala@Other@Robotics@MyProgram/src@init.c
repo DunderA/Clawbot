@@ -22,6 +22,7 @@ pinMode(6,INPUT);
 pinMode(7,INPUT);
 elbowEncoder = encoderInit(2,3,false);
 shoulderEncoder = encoderInit(4,5,true);
+noiseMaker =ultrasonicInit (8,9);
 }
 
 /*
