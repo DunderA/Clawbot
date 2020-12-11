@@ -64,16 +64,17 @@ void operatorControl() {
         while(joystickGetDigital(1, 8, JOY_RIGHT)){
           delay(60);
           ultraRange=ultrasonicGet(noiseMaker);
-          if(ultraRange<0){
-            motorStopAll();
+          if(ultraRange<0 || ultraRange>50){
+            motorSet(LEFT,35);
+            motorSet(RIGHT,35);
           }
           else if(ultraRange>(ultraFollow+4)){
-            motorSet(LEFT,25);
-            motorSet(RIGHT,-25);
+            motorSet(LEFT,35);
+            motorSet(RIGHT,-35);
           }
           else if(ultraRange<(ultraFollow-4)){
-            motorSet(LEFT,-25);
-            motorSet(RIGHT,25);
+            motorSet(LEFT,-35);
+            motorSet(RIGHT,35);
           }
 
           else{
