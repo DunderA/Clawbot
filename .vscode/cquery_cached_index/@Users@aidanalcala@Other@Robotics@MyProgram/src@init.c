@@ -8,7 +8,8 @@
  */
 
 #include "main.h"
-
+#define ELBOWLIMIT 6
+#define SHOULDERLIMIT 7
 /*
  * Runs pre-initialization code. This function will be started in kernel mode one time while the
  * VEX Cortex is starting up. As the scheduler is still paused, most API functions will fail.
@@ -18,11 +19,15 @@
  * configure a UART port (usartOpen()) but cannot set up an LCD (lcdInit()).
  */
 void initializeIO() {
-pinMode(6,INPUT);
-pinMode(7,INPUT);
+//limit switches
+pinMode(ELBOWLIMIT,INPUT);
+pinMode(SHOULDERLIMIT,INPUT);
+//position encoders
 elbowEncoder = encoderInit(2,3,false);
 shoulderEncoder = encoderInit(4,5,true);
+//ultrasonic sensor
 noiseMaker =ultrasonicInit (8,9);
+
 }
 
 /*
@@ -39,4 +44,8 @@ noiseMaker =ultrasonicInit (8,9);
  * can be implemented in this task if desired.
  */
 void initialize() {
+  //analog line trackers
+  analogCalibrate(5);
+  analogCalibrate(6);
+  analogCalibrate(7);
 }

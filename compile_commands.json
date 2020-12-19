@@ -21,11 +21,11 @@
             "-fdiagnostics-color",
             "-std=gnu99",
             "-o",
-            "bin/auto.c.o",
-            "src/auto.c"
+            "bin/init.c.o",
+            "src/init.c"
         ],
         "directory": "/Users/aidanalcala/Other/Robotics/MyProgram",
-        "file": "src/auto.c"
+        "file": "src/init.c"
     },
     {
         "arguments": [
@@ -49,11 +49,11 @@
             "-fdiagnostics-color",
             "-std=gnu99",
             "-o",
-            "bin/init.c.o",
-            "src/init.c"
+            "bin/auto.c.o",
+            "src/auto.c"
         ],
         "directory": "/Users/aidanalcala/Other/Robotics/MyProgram",
-        "file": "src/init.c"
+        "file": "src/auto.c"
     },
     {
         "arguments": [

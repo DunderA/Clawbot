@@ -11,11 +11,18 @@
 #define SHOULDERLIMIT 7
 void operatorControl() {
    int loopCount = 0; //just a loop counter
-	 int power, turn;
+	 int power, turn; //steering variables
+   //clc variables
    int shoulderTarget = 0;
    int elbowTarget = 0;
+
+   //ultrasonic variables
    int ultraRange = 0;
-   int ultraFollow = 30;
+   int ultraFollow = 20;
+   //line following variables
+   int l;
+   int c;
+   int r;
    while(1) {
 
 
@@ -59,14 +66,17 @@ void operatorControl() {
       }
 
 
+      //ultrasonic 2d following
 
       if(joystickGetDigital(1, 8, JOY_RIGHT)){
         while(joystickGetDigital(1, 8, JOY_RIGHT)){
-          delay(60);
+
+          delay(20);
+
           ultraRange=ultrasonicGet(noiseMaker);
-          if(ultraRange<0 || ultraRange>50){
-            motorSet(LEFT,35);
-            motorSet(RIGHT,35);
+          if(ultraRange<0 || ultraRange>70){
+            motorSet(LEFT,50);
+            motorSet(RIGHT,50);
           }
           else if(ultraRange>(ultraFollow+4)){
             motorSet(LEFT,35);
@@ -83,6 +93,41 @@ void operatorControl() {
           if(joystickGetDigital(1, 7, JOY_UP)){ultraFollow++;}
           if(joystickGetDigital(1, 7, JOY_DOWN)){ultraFollow--;}
           printf("%d\n",ultraRange);
+        }
+      }
+
+      //line following
+
+      if(joystickGetDigital(1, 8, JOY_LEFT)){
+        while(joystickGetDigital(1, 8, JOY_LEFT)){
+
+          l=analogReadCalibrated(5);
+          c=analogReadCalibrated(7);
+          r=analogReadCalibrated(6);
+          printf("%d ",l/1000);
+          printf("%d ",c/1000);
+          printf("%d \n",r/1000);
+
+          if(c>l && c>r){
+            motorSet(LEFT,-30);
+            motorSet(RIGHT,30);
+          }
+
+          else if(l>c && l >r){
+            motorSet(LEFT,-30);
+            motorSet(RIGHT,-30);
+
+          }
+
+          else if(r > c && r >l){
+            motorSet(LEFT,30);
+            motorSet(RIGHT,30);
+          }
+
+          else{
+            motorSet(LEFT,30);
+            motorSet(RIGHT,-30);
+          }
         }
       }
       // Homeing routine
