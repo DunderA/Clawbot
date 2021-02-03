@@ -14,7 +14,7 @@ void operatorControl() {
 	 int power, turn; //steering variables
    //clc variables
    int shoulderTarget = 0;
-   int elbowTargt = 0;
+   int elbowTarget = 0;
 
    //ultrasonic variables
    int ultraRange = 0;
